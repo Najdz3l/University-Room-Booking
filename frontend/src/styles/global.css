@@ -1,0 +1,214 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #f8f9fb;
+  --color-surface: #ffffff;
+  --color-sidebar-bg: #eef6fb;
+  --color-sidebar-border: #d0e4ef;
+  --color-text-primary: #1a1d23;
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #718096;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #2563eb;
+  --color-weekend-toggle-focus: #93c5fd;
+
+  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-heading: 13px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  --sidebar-width: 280px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Calendar Layout */
+
+.calendar-layout {
+  display: flex;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.calendar-layout__main {
+  flex: 1;
+  padding: var(--spacing-xl);
+  overflow: auto;
+  background-color: var(--color-bg);
+}
+
+/* Sidebar */
+
+.calendar-sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background-color: var(--color-sidebar-bg);
+  border-right: 1px solid var(--color-sidebar-border);
+  overflow-y: auto;
+  padding: var(--spacing-md);
+}
+
+.sidebar__section {
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.sidebar__section + .sidebar__section {
+  border-top: 1px solid var(--color-sidebar-border);
+}
+
+.sidebar__heading {
+  font-size: var(--font-size-heading);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sidebar__instructions {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.sidebar__instructions li {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  padding-left: var(--spacing-md);
+  position: relative;
+}
+
+.sidebar__instructions li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+/* Sidebar Event Item */
+
+.sidebar-event-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-sidebar-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-event-item__date {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.sidebar-event-item__title {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-style: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Calendar View */
+
+.calendar-view {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Calendar Event Content */
+
+.calendar-event__time {
+  font-weight: 700;
+  margin-right: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+}
+
+.calendar-event__title {
+  font-style: italic;
+  font-size: var(--font-size-sm);
+}
+
+/* FullCalendar theme overrides */
+
+.fc {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+}
+
+.fc .fc-button {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: 4px 10px;
+  transition: background-color 0.15s ease;
+}
+
+.fc .fc-button:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.fc .fc-toolbar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.fc .fc-col-header-cell-cushion,
+.fc .fc-daygrid-day-number {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.fc .fc-daygrid-day-number:hover {
+  color: var(--color-accent);
+}
+
+.fc-day-today {
+  background-color: #eff6ff !important;
+}

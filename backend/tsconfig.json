@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    // ===== BUN SPECIFIC =====
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["esnext"],
+    "types": ["bun"],
+
+    // ===== OUTPUT =====
+    "outDir": "./dist",
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // ===== STRICT CHECKING =====
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+
+    // ===== MODULE RESOLUTION =====
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+
+    // ===== PATH ALIASES =====
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@api/*": ["src/api/*"],
+      "@lib/*": ["src/lib/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@logger/*": ["src/lib/utils/logger"], // for-now
+      "@oop/*": ["src/api/oop/*"],
+      "@fp/*": ["src/api/fp/*"],
+      "@declarative/*": ["src/api/declarative/*"]
+    }
+  },
+
+  "include": ["src/**/*", "prisma.config.ts", "prisma/seed.ts"],
+  "exclude": ["dist", "node_modules", ".next"]
+}

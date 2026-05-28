@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Wykładowcy/Profesorowie
+// W ramach ułatwienia, zakładamy że każdy wykładowca
+// ma unikalne imię i nazwisko (nie ma dwóch "Janów Kowalskich")
+model Lecturer {
+  id        String @id @default(uuid())
+  titles    String
+  firstName String
+  lastName  String
+
+  sessions Session[] // Sesje zajęć prowadzonych przez wykładowcę
+
+  @@map("lecturers")
+}
+
+// Sale
+model Room {
+  id       String   @id @default(uuid())
+  name     String   @unique // np. "202A", "102"
+  floor    Floor // piętro
+  building Building // budynek
+
+  sessions Session[] // Sesje zajęć przeprowadzane w danej sali
+
+  @@map("rooms")
+}
+
+// Klasy/Przedmioty
+model Class {
+  id   String @id @default(uuid())
+  name String // np. "Bazy Danych", "Analiza Matematyczna II"
+
+  // Class -> Session (1:N)
+  sessions Session[] // Sesje zajęć dla danej klasy
+
+  @@map("classes")
+}
+
+// Sesje zajęć (harmonogram)
+// Pojedyńcza rezerwacja sali dla konkretnej klasy,
+// prowadzonej przez konkretnego wykładowcę, w określonym czasie
+model Session {
+  id         String   @id @default(uuid())
+  classId    String // Jaki przedmiot
+  roomId     String // W jakiej sali
+  lecturerId String // kto prowadzi
+  startTime  DateTime //Data rozpoczęcia zajęć
+  endTime    DateTime // Data zakończenia zajęć
+
+  class    Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  room     Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  lecturer Lecturer @relation(fields: [lecturerId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, startTime, endTime])
+  @@map("sessions")
+}
+
+enum Floor {
+  GROUND // parter
+  FIRST // pierwsze piętro
+  SECOND // drugie piętro
+}
+
+enum Building {
+  MAIN // budynek główny
+  GYM // budynek sportowy
+}
